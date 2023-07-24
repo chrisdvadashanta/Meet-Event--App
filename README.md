@@ -1,6 +1,10 @@
 # meet
-meet App for events in citys
+Meet App for events in cities
 Deployed here: https://chrisdvadashanta.github.io/meet/
+
+Usage of serverless function:
+These functions will be used with AWS and lambda to create a progressive web app functioning "without" a backend for a serverless web app.
+The process of users pulling data through an existing API (the Google Calendar) and showing events nearby, by selecting the location, the serverless function will ensure fast response time for the app to show these events and their details to the user. The app is easy to scale and to deploy and as the data is not to sensitive 9public events) it doesn't need to be stored on an owned server. 
 
 User Stories
 User Story definition:
