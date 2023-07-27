@@ -36,7 +36,7 @@ module.exports.getAuthURL = async () => {
 module.exports.getAccessToken = async (event) => {
   // Decode authorization code extracted from the URL query
   const code = decodeURIComponent(`${event.pathParameters.code}`);
-
+  console.log("example event", event)
   return new Promise((resolve, reject) => {
   
     oAuth2Client.getToken(code, (error, response) => {
@@ -68,12 +68,16 @@ module.exports.getAccessToken = async (event) => {
 
 
 module.exports.getCalendarEvents = async (event) => {
-  const access_token = decodeURIComponent(`${event.pathParameters.code}`);
+  const oAuth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    redirect_uris[0]
+  );
+  const access_token = decodeURIComponent(`${event.pathParameters.access_token}`);
   oAuth2Client.setCredentials({ access_token });
 
-  return new Promise((resolve, reject) => {
-
-    calendar.events.list(
+  return new Promise ((resolve, reject) => {
+      calendar.events.list(
       {
         calendarId: CALENDAR_ID,
         auth: oAuth2Client,
@@ -88,7 +92,9 @@ module.exports.getCalendarEvents = async (event) => {
           resolve(response);
         }
       }
-    ).then((results) => {
+    )
+  }) 
+    .then((results) => {
       return {
         statusCode: 200,
         headers: {
@@ -105,5 +111,6 @@ module.exports.getCalendarEvents = async (event) => {
         body: JSON.stringify(error),
       };
     });
-})
+
 };
+
