@@ -23,9 +23,8 @@ describe('<CitySearch /> component', () => {
     test('renders a list of suggestions when city textbox gains focus', async () => {
       const user = userEvent.setup();
       const cityTextBox = CitySearchComponent.queryByRole('textbox');
-      fireEvent.focus(cityTextBox);
-      // await screen.findByRole('list');
-      // await user.click(cityTextBox);
+    
+      await user.click(cityTextBox);
       const suggestionList = CitySearchComponent.queryByRole('list');
       expect(suggestionList).toBeInTheDocument();
       expect(suggestionList).toHaveClass('suggestions');
@@ -39,8 +38,7 @@ describe('<CitySearch /> component', () => {
   
       // user types "Berlin" in city textbox
       const cityTextBox = CitySearchComponent.queryByRole('textbox');
-      // await user.type(cityTextBox, "Berlin");
-      fireEvent.change(cityTextBox, { target: { value: 'Berlin' } });
+      await user.type(cityTextBox, "Berlin");
 
       // filter allLocations to locations matching "Berlin"
       const suggestions = allLocations? allLocations.filter((location) => {
