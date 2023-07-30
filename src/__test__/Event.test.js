@@ -1,7 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event"; 
 import Event from "../components/Event";
-import { extractLocations, getEvents } from "../api";
+import { getEvents } from "../api";
 
 ///Feature 2&3 Test: no code according to test applied yet in Event.js
 
@@ -36,9 +37,7 @@ describe("<Event /> component", () => {
   });
   test("shows the details section when the user clicks on the 'show details' button", async () => {
     const EventComponent = render(<Event event={eventData} />);
-    const showDetailsButton = EventComponent.queryByText(
-      "#show-details-button"
-    );
+    const showDetailsButton = getByText("#show-details");
     await userEvent.click(showDetailsButton);
     expect(
       EventComponent.queryByText(eventData.description)
@@ -46,9 +45,7 @@ describe("<Event /> component", () => {
   });
   test("hides the details section when the user clicks on the 'hide details' button", async () => {
     const EventComponent = render(<Event event={eventData} />);
-    const hideDetailsButton = EventComponent.queryByText(
-      "#hide-details-button"
-    );
+    const hideDetailsButton = getByText("#hide-details");
     await userEvent.click(hideDetailsButton);
     expect(
       EventComponent.queryByText(eventData.description)
