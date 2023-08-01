@@ -1,32 +1,57 @@
-import './App.css';
-import { useState, useEffect } from 'react';
 import React from 'react';
+import { useState, useEffect } from 'react';
 import EventList from './components/EventList';
 import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
-import { getEvents } from '../src/api.js';
-
+import { extractLocations, getEvents } from '../src/api.js';
+import './App.css';
 
 const App = () => {
     const [allLocations, setAllLocations] = useState([]);
     const [events, setEvents] = useState([]);
+    const [eventNumber, setEventNumber] = useState(32);
+    const [selectedCity, setSelectedCity] = useState("");
+    const [filteredEvents, setFilteredEvents] = useState([]);
 
-  useEffect(() => {
-    // Fetch the events and update the state
-    const fetchEvents = async () => {
-      const events = await getEvents();
-      setEvents(events);
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const eventList = await getEvents();
+          setEvents(eventList);
+          setAllLocations(extractLocations(eventList));
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchData();
+    }, []);
+
+    const handleCitySelected = (city) => {
+      setSelectedCity(city);
+  
+      if (city === "See all cities") {
+        setFilteredEvents([]);
+        setEventNumber(32);
+      } else {
+        const filteredEvents = events.filter((event) => event.location === city);
+        //use eventNumber if present to limit number
+        setFilteredEvents(filteredEvents);
+      }
     };
 
-    fetchEvents();
-  }, []);
+    const handleEventNumberChange = (value) => {
+      setEventNumber(value);
+    };
 
 
   return (
     <div className="App">
-        <NumberOfEvents /> 
-        <EventList events={events}/>
-        <CitySearch allLocations={allLocations} />
+        <CitySearch allLocations={allLocations} setSelectedCity={handleCitySelected} />
+        <NumberOfEvents eventNumber={eventNumber} onEventNumberChange={handleEventNumberChange} /> 
+        <EventList events={filteredEvents.length > 0 ? filteredEvents : events}/>
+        
     </div>
   );
  }
