@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 
-const NumberOfEvents = () => {
-  const [numberOfEvents, setNumberOfEvents] = useState(32); 
-
-  const handleChange = (event) => {
-    const value = event.target.value;
-    setNumberOfEvents(value);
+const NumberOfEvents = ({ eventNumber, onEventNumberChange }) => {
+  
+  const handleInputChanged = (value) => {
+    const numberValue = parseInt(value); // Convert the input value to a number
+    if (!isNaN(numberValue)) {
+      onEventNumberChange(numberValue);
+    } else {
+      onEventNumberChange(0);
+    }
   };
 
   return (
-    <div id="number-of-events">
-      <label htmlFor="number-of-events-textbox">Number of Events:</label>
+    <div data-testid="number-of-events">
       <input
-        type="number"
-        id="number-of-events-textbox"
-        data-testid="number-of-events-textbox"
-        value={numberOfEvents}
-        onChange={handleChange}
+        type="text"
+        className="textbox"
+        placeholder="Enter a number"
+        value={eventNumber}
+        onChange={(e) => handleInputChanged(e.target.value)}
       />
     </div>
   );
 };
-
 export default NumberOfEvents;
