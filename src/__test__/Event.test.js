@@ -1,54 +1,79 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import userEvent from "@testing-library/user-event"; 
+import { fireEvent, render, screen } from "@testing-library/react";
 import Event from "../components/Event";
-import { getEvents } from "../api";
+//import userEvent from "@testing-library/user-event";
 
-///Feature 2&3 Test: no code according to test applied yet in Event.js
+const event = {
+  "kind": "calendar#event",
+  "etag": "\"3181161784712000\"",
+  "id": "4eahs9ghkhrvkld72hogu9ph3e_20200519T140000Z",
+  "status": "confirmed",
+  "htmlLink": "https://www.google.com/calendar/event?eid=NGVhaHM5Z2hraHJ2a2xkNzJob2d1OXBoM2VfMjAyMDA1MTlUMTQwMDAwWiBmdWxsc3RhY2t3ZWJkZXZAY2FyZWVyZm91bmRyeS5jb20",
+  "created": "2020-05-19T19:17:46.000Z",
+  "updated": "2020-05-27T12:01:32.356Z",
+  "summary": "Learn JavaScript",
+  "description": "Have you wondered how you can ask Google to show you the list of the top ten must-see places in London? And how Google presents you the list? How can you submit the details of an application? Well, JavaScript is doing these. :) \n\nJavascript offers interactivity to a dull, static website. Come, learn JavaScript with us and make those beautiful websites.",
+  "location": "London, UK",
+  "creator": {
+   "email": "fullstackwebdev@careerfoundry.com",
+   "self": true
+  },
+  "organizer": {
+   "email": "fullstackwebdev@careerfoundry.com",
+   "self": true
+  },
+  "start": {
+   "dateTime": "2020-05-19T16:00:00+02:00",
+   "timeZone": "Europe/Berlin"
+  },
+  "end": {
+   "dateTime": "2020-05-19T17:00:00+02:00",
+   "timeZone": "Europe/Berlin"
+  },
+  "recurringEventId": "4eahs9ghkhrvkld72hogu9ph3e",
+  "originalStartTime": {
+   "dateTime": "2020-05-19T16:00:00+02:00",
+   "timeZone": "Europe/Berlin"
+  },
+  "iCalUID": "4eahs9ghkhrvkld72hogu9ph3e@google.com",
+  "sequence": 0,
+  "reminders": {
+   "useDefault": true
+  },
+  "eventType": "default"
+ };
 
 describe("<Event /> component", () => {
-  let eventData;
-  beforeEach(async () => {
-    const events = await getEvents();
-    eventData = events[0];
+  test("renders event location", () => {
+    render(<Event event={event} />);
+    expect(screen.getByText(event.location)).toBeInTheDocument();
   });
-  /////////////////Event components Feature 2
-  test("renders Event Title", () => {
-    const { queryByText } = render(<Event event={eventData} />);
-    expect(queryByText(eventData.summary)).toBeInTheDocument();
+  test("renders event name", () => {
+    render(<Event event={event} />);
+    expect(screen.getByText(event.summary)).toBeInTheDocument();
   });
-  test("renders Event Start time", () => {
-    const { queryByText } = render(<Event event={eventData} />);
-    expect(queryByText(eventData.created)).toBeInTheDocument();
-  });
-  test("renders Event Location ", () => {
-    const { queryByText } = render(<Event event={eventData} />);
-    expect(queryByText(eventData.location)).toBeInTheDocument();
+  test("renders event date", () => {
+    render(<Event event={event} />);
+    expect(screen.getByText(event.start.dateTime)).toBeInTheDocument();
   });
   test("renders event details button with the title (show details)", () => {
-    const { queryByText } = render(<Event event={eventData} />);
-    expect(queryByText("show details")).toBeInTheDocument();
-  });
-
-  /////////////////Event details Feature 2
-  test("by default, event's details section should be hidden", () => {
-    const { queryByText } = render(<Event event={eventData} />);
-    expect(queryByText(eventData.description)).not.toBeInTheDocument();
-  });
-  test("shows the details section when the user clicks on the 'show details' button", async () => {
-    const EventComponent = render(<Event event={eventData} />);
-    const showDetailsButton = getByText("#show-details");
-    await userEvent.click(showDetailsButton);
+    render(<Event event={event} />);
+    expect(screen.getByText("Show Details")).toBeInTheDocument();
     expect(
-      EventComponent.queryByText(eventData.description)
+      screen.queryByText(/Have you wondered how you can ask Google/)
+    ).not.toBeInTheDocument();
+  });
+ 
+  test("shows and hides details section when the user toggles button", () => {
+    render(<Event event={event} />);
+    const showDetailsButton = screen.getByText("Show Details");
+    fireEvent.click(showDetailsButton);
+    expect(
+      screen.getByText(/Have you wondered how you can ask Google/)
     ).toBeInTheDocument();
-  });
-  test("hides the details section when the user clicks on the 'hide details' button", async () => {
-    const EventComponent = render(<Event event={eventData} />);
-    const hideDetailsButton = getByText("#hide-details");
-    await userEvent.click(hideDetailsButton);
+
+    fireEvent.click(showDetailsButton);
     expect(
-      EventComponent.queryByText(eventData.description)
+      screen.queryByText(/Have you wondered how you can ask Google/)
     ).not.toBeInTheDocument();
   });
 });
