@@ -8,9 +8,11 @@ describe(" <EventList /> component", () => {
   beforeEach(() => {
     EventListComponent = render(<EventList />);
   });
+
   test('has an element with "list" role', () => {
     expect(EventListComponent.queryByRole("list")).toBeInTheDocument();
   });
+  
   test("renders correct number of events", async () => {
     const allEvents = await getEvents();
     EventListComponent.rerender(<EventList events={allEvents} />);
