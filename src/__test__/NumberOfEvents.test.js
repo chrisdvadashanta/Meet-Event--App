@@ -4,7 +4,7 @@ import NumberOfEvents from "../components/NumberOfEvents";
 import App from "../App";
 
 describe("<NumberOfEvents /> component", () => {
-  
+
   test("checks if element has the role of a text box", () => {
     render(<NumberOfEvents eventNumber={32} />);
     const numberTextBox = screen.queryByRole("textbox");
@@ -31,18 +31,12 @@ describe("<NumberOfEvents /> component", () => {
 
   describe("<NumberOfEvents /> integration", () => {
     test("renders a specific number of events when the app is rendered", async () => {
-      const currentNumberOfEvents = 32;
       render(<App />);
-      const numberOfEvents = screen.getByTestId("number-of-events");
-      const numberTextbox = within(numberOfEvents).getByRole("textbox");
-      //const numberTextbox = screen.queryByPlaceholderText("Enter a number");
-      //await userEvent.type(numberTextbox,currentNumberOfEvents.toString());
-      await userEvent.type(numberTextbox, "{backspace}{backspace}10");
-
+      const numberOfEvents = screen.getByPlaceholderText("Enter a number")
+      await userEvent.type(numberOfEvents, "{backspace}{backspace}10");
       await screen.findAllByRole("listitem");
       const eventListItems = screen.queryAllByRole("listitem");
-      expect(eventListItems.length).toBe(currentNumberOfEvents);
-
+      expect(eventListItems.length).toBe(10);
     });
 
   });

@@ -48,9 +48,9 @@ const App = () => {
 
   return (
     <div className="App">
-        <CitySearch allLocations={allLocations} setSelectedCity={handleCitySelected} />
+        <CitySearch allLocations={allLocations} handleCitySelected={handleCitySelected} />
         <NumberOfEvents eventNumber={eventNumber} onEventNumberChange={handleEventNumberChange} /> 
-        <EventList events={filteredEvents.length > 0 ? filteredEvents : events}/>
+        <EventList events={filteredEvents.length > 0 ? filteredEvents.slice(0, eventNumber ) : events.slice(0, eventNumber )}/>
         
     </div>
   );

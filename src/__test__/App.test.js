@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import App from "../App.js";
 import React from "react";
 
@@ -17,9 +17,6 @@ describe("<App /> component", () => {
   });
 
   test("Feat 3: NumberOfEvents component is rendered correctly", () => {
-    const { container } = render(<App />);
-    const numberOfEventsComponent =
-      container.firstChild.querySelector("#number-of-events");
-    expect(numberOfEventsComponent).toBeInTheDocument();
+    expect(AppDOM.querySelector("#number-of-events")).toBeInTheDocument();
   });
 });
