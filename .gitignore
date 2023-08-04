@@ -1,4 +1,7 @@
-# package directories
 node_modules
-
+coverage
+.parcel-cache
+build
+dist 
 jspm_packages
+
