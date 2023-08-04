@@ -1,8 +1,7 @@
-# package directories
-jspm_packages
-node_modules
 node_modules
 coverage
 .parcel-cache
 build
 dist 
+jspm_packages
+

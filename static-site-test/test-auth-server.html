@@ -104,11 +104,14 @@
       getEvents.onclick = function () {
         const { access_token } = JSON.parse(accessTokenElement.innerText);
         const eventRequest = getCalendarEvents + "/" + access_token;
+        console.log("eventRequest", eventRequest);
         fetch(eventRequest)
           .then(function (response) {
+            console.log("response", response);
             return response.json();
           })
           .then(function (json) {
+            console.log("json", json);
             events.innerText = JSON.stringify(json, null, 2);
           });
       };
