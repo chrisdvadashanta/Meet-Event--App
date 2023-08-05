@@ -1,5 +1,5 @@
 import React from "react";
-import { render, within } from "@testing-library/react";
+import { render, within, screen, waitFor } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import App from "../App.js";
 import { getEvents } from "../api.js";
@@ -51,5 +51,19 @@ describe('<App /> integration', () => {
       expect(event.textContent).toContain("Berlin, Germany");
     });
   });
+
+  test('User can change the number of events displayed', async () => {
+    render(<App />);
+    const numberOfEvents = screen.getByPlaceholderText("Enter a number")
+    await userEvent.type(numberOfEvents, "{backspace}{backspace}10");
+    const allRenderedEventItems = await screen.findAllByRole("listitem");
+    
+    const allEvents = await getEvents();
+    const NumberOfEvents = allEvents.length
+    
+    expect(allRenderedEventItems.length).toBe(Math.min(NumberOfEvents, 10));
+  });
+    
+ 
 
 });
