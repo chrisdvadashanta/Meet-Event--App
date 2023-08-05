@@ -1,10 +1,18 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const CitySearch = ({allLocations, handleCitySelected =()=>{} }) => {
+const CitySearch = ({allLocations, handleCitySelected =()=>{} , setSelectedCity =()=>{} }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+
+  useEffect(() => {
+    if (allLocations) {
+      setSuggestions(allLocations);
+    } else {
+      setSuggestions([]);
+    }
+  }, [allLocations]);
 
   const handleInputChanged = (event) => {
     const value = event.target.value;
@@ -21,6 +29,7 @@ const CitySearch = ({allLocations, handleCitySelected =()=>{} }) => {
     handleCitySelected (value);
     setQuery(value);
     setShowSuggestions(false); // to hide the list
+    setSelectedCity(value)
   };
 
   return (

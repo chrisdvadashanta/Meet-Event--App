@@ -26,7 +26,7 @@ const App = () => {
         }
       };
       fetchData();
-    }, []);
+    }, [selectedCity]);
 
     const handleCitySelected = (city) => {
       setSelectedCity(city);
