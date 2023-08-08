@@ -5,6 +5,7 @@
   "homepage": "https://chrisdvadashanta.github.io/meet",
   "dependencies": {
     "@testing-library/user-event": "^14.4.3",
+    "atatus-spa": "^4.5.0",
     "googleapis": "^110.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
