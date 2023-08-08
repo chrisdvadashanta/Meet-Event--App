@@ -4,6 +4,8 @@ import EventList from './components/EventList';
 import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
 import { extractLocations, getEvents } from '../src/api.js';
+import { InfoAlert, ErrorAlert } from '../src/components/Alert';
+
 import './App.css';
 
 const App = () => {
@@ -12,7 +14,8 @@ const App = () => {
     const [eventNumber, setEventNumber] = useState(32);
     const [selectedCity, setSelectedCity] = useState("");
     const [filteredEvents, setFilteredEvents] = useState([]);
-
+    const [infoAlert, setInfoAlert] = useState("");
+    const [errorAlert, setErrorAlert] = useState("");
 
 
     useEffect(() => {
@@ -48,8 +51,19 @@ const App = () => {
 
   return (
     <div className="App">
-        <CitySearch allLocations={allLocations} handleCitySelected={handleCitySelected} />
-        <NumberOfEvents eventNumber={eventNumber} onEventNumberChange={handleEventNumberChange} /> 
+        <div className="alerts-container">
+          {infoAlert.length ? <InfoAlert text={infoAlert}/> : null}
+        </div>
+        <div className="alerts-container">
+          {errorAlert.length ? <ErrorAlert text={errorAlert}/> : null}
+        </div>
+        <CitySearch allLocations={allLocations} 
+        handleCitySelected={handleCitySelected} 
+        setInfoAlert={setInfoAlert} 
+        />
+        <NumberOfEvents 
+        setErrorAlert={setErrorAlert}
+        eventNumber={eventNumber} onEventNumberChange={handleEventNumberChange} /> 
         <EventList events={filteredEvents.length > 0 ? filteredEvents.slice(0, eventNumber ) : events.slice(0, eventNumber )}/>
         
     </div>
