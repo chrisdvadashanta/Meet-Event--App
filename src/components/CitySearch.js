@@ -1,7 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 
-const CitySearch = ({allLocations, handleCitySelected =()=>{} , setSelectedCity =()=>{} }) => {
+
+const CitySearch = ({ setInfoAlert=()=>{}, 
+  allLocations, handleCitySelected =()=>{}, 
+  setSelectedCity =()=>{},
+  }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -17,11 +21,24 @@ const CitySearch = ({allLocations, handleCitySelected =()=>{} , setSelectedCity 
   const handleInputChanged = (event) => {
     const value = event.target.value;
     const filteredLocations = allLocations ? allLocations.filter((location) => {
-      return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
+      if (location && typeof location === 'string') {
+        return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
+      }
+      return false;
     }) : [];
 
+    let infoText = "";
+    if (filteredLocations.length === 0) {
+      infoText = "We can not find the city you are looking for. Please try another city"
+    } else {
+      infoText = ""
+    };
+    
+    setInfoAlert(infoText);  
     setQuery(value);
     setSuggestions(filteredLocations);
+
+    
   };
 
   const handleItemClicked = (event) => {
@@ -29,7 +46,8 @@ const CitySearch = ({allLocations, handleCitySelected =()=>{} , setSelectedCity 
     handleCitySelected (value);
     setQuery(value);
     setShowSuggestions(false); // to hide the list
-    setSelectedCity(value)
+    setSelectedCity(value);
+    setInfoAlert("");
   };
 
   return (
