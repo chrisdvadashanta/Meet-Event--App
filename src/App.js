@@ -4,7 +4,7 @@ import EventList from './components/EventList';
 import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
 import { extractLocations, getEvents } from '../src/api.js';
-import { InfoAlert, ErrorAlert } from '../src/components/Alert';
+import { InfoAlert, ErrorAlert, WarningAlert } from '../src/components/Alert';
 
 import './App.css';
 
@@ -16,9 +16,11 @@ const App = () => {
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [infoAlert, setInfoAlert] = useState("");
     const [errorAlert, setErrorAlert] = useState("");
+    const [warningAlert, setWarningAlert] = useState ("");
 
 
     useEffect(() => {
+      // console.log("Warning", warningAlert);
       const fetchData = async () => {
         try {
           const eventList = await getEvents();
@@ -28,8 +30,31 @@ const App = () => {
           console.log(error);
         }
       };
+      // let infoText ="";
+      // if (navigator.onLine) {
+      //   infoText = ""
+      // } else {
+      //   infoText = "You are currently offline "};
+      
+      // setWarningAlert (infoText);
       fetchData();
-    }, [selectedCity]);
+    }, [selectedCity,eventNumber ]);
+
+    useEffect(() => {
+      console.log("Warning", warningAlert);
+    
+      const fetchData = async () => {
+        let infoText = navigator.onLine ? "" : "You are currently offline ";
+    
+        if (infoText !== warningAlert) {
+          setWarningAlert(infoText);
+        }
+      };
+    
+      fetchData();
+    }, [warningAlert]);
+    
+
 
     const handleCitySelected = (city) => {
       setSelectedCity(city);
@@ -56,6 +81,9 @@ const App = () => {
         </div>
         <div className="alerts-container">
           {errorAlert.length ? <ErrorAlert text={errorAlert}/> : null}
+        </div>
+        <div className="alerts-container">
+          {warningAlert.length ? <WarningAlert text={warningAlert}/> : null}
         </div>
         <CitySearch allLocations={allLocations} 
         handleCitySelected={handleCitySelected} 
