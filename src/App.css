@@ -132,9 +132,12 @@ input[type="number"] {
   }
 
   /* Alerts Container */
-  .alerts-container {
+ .alerts-container {
+    position: fixed;
+    top: 100px;     /* Place it 100 pixels down from the top */
     left: 0;
-    right: 0;  /* Stretch across the top */
+    right: 0;      /* Stretch across the width */
     width: auto;
-  }
+    z-index: 1000; /* Ensure it stays above other elements */
+}
 }
