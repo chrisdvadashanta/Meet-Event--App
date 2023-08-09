@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import EventList from './components/EventList';
 import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
+import CityEventsChart from './components/CityEventsChart';
+import EventsPieChart from './components/EventsPieChart';
 import { extractLocations, getEvents } from '../src/api.js';
 import { InfoAlert, ErrorAlert, WarningAlert } from '../src/components/Alert';
 
@@ -20,7 +22,6 @@ const App = () => {
 
 
     useEffect(() => {
-      // console.log("Warning", warningAlert);
       const fetchData = async () => {
         try {
           const eventList = await getEvents();
@@ -30,13 +31,6 @@ const App = () => {
           console.log(error);
         }
       };
-      // let infoText ="";
-      // if (navigator.onLine) {
-      //   infoText = ""
-      // } else {
-      //   infoText = "You are currently offline "};
-      
-      // setWarningAlert (infoText);
       fetchData();
     }, [selectedCity,eventNumber ]);
 
@@ -54,13 +48,12 @@ const App = () => {
       fetchData();
     }, [warningAlert]);
     
-
-
     const handleCitySelected = (city) => {
       setSelectedCity(city);
   
       if (city === "See all cities") {
-        setFilteredEvents([]);
+        setSelectedCity(null); 
+        setFilteredEvents(events);
         setEventNumber(32);
       } else {
         const filteredEvents = events.filter((event) => event.location === city);
@@ -72,7 +65,6 @@ const App = () => {
     const handleEventNumberChange = (value) => {
       setEventNumber(value);
     };
-
 
   return (
     <div className="App">
@@ -92,8 +84,12 @@ const App = () => {
         <NumberOfEvents 
         setErrorAlert={setErrorAlert}
         eventNumber={eventNumber} onEventNumberChange={handleEventNumberChange} /> 
+          {/* Charts */}
+        <div className='chart-container'>
+        <CityEventsChart allLocations={allLocations} events={events} selectedCity={selectedCity} />
+        <EventsPieChart events={events} />
+        </div>
         <EventList events={filteredEvents.length > 0 ? filteredEvents.slice(0, eventNumber ) : events.slice(0, eventNumber )}/>
-        
     </div>
   );
  }
