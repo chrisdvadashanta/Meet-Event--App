@@ -33,12 +33,9 @@ const CitySearch = ({ setInfoAlert=()=>{},
     } else {
       infoText = ""
     };
-    
     setInfoAlert(infoText);  
     setQuery(value);
     setSuggestions(filteredLocations);
-
-    
   };
 
   const handleItemClicked = (event) => {
