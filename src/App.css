@@ -94,3 +94,47 @@ input[type="number"] {
   width: 250px;
   z-index: 1000;
 }
+
+.charts-container{
+  grid-template-columns: 1fr 1fr
+}
+
+
+@media only screen and (max-width: 768px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+
+  /* Typography */
+  p, ul {
+    font-size: 16px;
+  }
+
+  /* Inputs and buttons */
+  input[type="text"], input[type="number"] {
+    width: 100%; /* Make input fields full width */
+    padding: 10px 8px;
+    margin-bottom: 15px;
+  }
+
+  /* City Search */
+  #city-search {
+    width: 100%;
+  }
+
+  .suggestions {
+    width: 100%; /* Make the dropdown full width */
+  }
+
+  /* Event Box */
+  .event-box {
+    padding: 5px 5px 30px; /* Reduce padding */
+  }
+
+  /* Alerts Container */
+  .alerts-container {
+    left: 0;
+    right: 0;  /* Stretch across the top */
+    width: auto;
+  }
+}
