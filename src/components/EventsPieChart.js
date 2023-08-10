@@ -2,10 +2,11 @@ import React, {  useState, useEffect } from "react";
 import { PieChart, Pie, ResponsiveContainer } from "recharts";
 
 
+
 export default function EventsPieChart({ events }) {
   const [data, setData] = useState([]);
   const genres = ["React", "JavaScript", "Node", "jQuery", "Angular"];
-
+  
   const renderCustomizedLabel = ({
     cx,
     cy,

@@ -31,22 +31,15 @@ const App = () => {
           console.log(error);
         }
       };
-      fetchData();
+      if (navigator.onLine) {
+        fetchData();
+        setWarningAlert("");
+      } else {
+        setWarningAlert("You are currently offline ");
+      }
+      
     }, [selectedCity,eventNumber ]);
 
-    useEffect(() => {
-      console.log("Warning", warningAlert);
-    
-      const fetchData = async () => {
-        let infoText = navigator.onLine ? "" : "You are currently offline ";
-    
-        if (infoText !== warningAlert) {
-          setWarningAlert(infoText);
-        }
-      };
-    
-      fetchData();
-    }, [warningAlert]);
     
     const handleCitySelected = (city) => {
       setSelectedCity(city);

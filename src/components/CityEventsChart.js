@@ -5,21 +5,25 @@ const CityEventsChart = ({ allLocations, events, selectedCity }) => {
   const [data, setData] = useState([]);
 
   const getData = useCallback(() => {
-    if (selectedCity) {
-        const count = events.filter((event) => event.location === selectedCity).length;
-        const city = selectedCity.split((/, | - /))[0];
-        return [{ city, count }];
-    } else {
-        return allLocations.map((location) => {
-            const count = events.filter((event) => event.location === location).length;
-            const city = location.split((/, | - /))[0];
-            return { city, count };
-        });
-    }
+    if (selectedCity && typeof selectedCity === 'string') {
+      const count = events.filter((event) => event.location === selectedCity).length;
+      const city = selectedCity.split(/, | - /)[0];
+      return [{ city, count }];
+  } else {
+      return allLocations.map((location) => {
+          if (typeof location !== 'string' || !location) {
+              console.error('Invalid value for location:', location);
+              return { city: '', count: 0 };  // or another suitable default value
+          }
+  
+          const count = events.filter((event) => event.location === location).length;
+          const city = location.split(/, | - /)[0];
+          return { city, count };
+      });
+  }
 }, [allLocations, events, selectedCity]);
 
   useEffect(() => {
-    console.log(data)
     setData(getData());
   }, [events, getData, selectedCity]);
 
