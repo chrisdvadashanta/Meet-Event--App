@@ -67,5 +67,8 @@ Scenario 1: User can install the meet app as a shortcut on their device home scr
 ### Feature 6: Display Charts Visualizing Event Details						
 Scenario 1: Show a chart with the number of upcoming events in each city. 
 					
-![Alt text](<Screenshot 2023-08-10 at 15.28.48.png>)				
+<img width="709" alt="Screenshot 2023-08-10 at 15 30 32" src="https://github.com/chrisdvadashanta/meet/assets/127535781/7857b7a6-d349-4cb3-9c06-2d3d84485de3">
+![Uploading Screenshot 2023-08-10 at 15.29.49.png…]()
+<img width="1293" alt="Screenshot 2023-08-10 at 15 28 48" src="https://github.com/chrisdvadashanta/meet/assets/127535781/6e87cfde-8aa8-4c81-b5e4-0d6d3662a39d">
+				
 	
