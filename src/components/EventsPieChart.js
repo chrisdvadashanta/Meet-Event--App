@@ -34,16 +34,13 @@ export default function EventsPieChart({ events }) {
   
 
   const getData = () => {
-    const data = genres.map((genre) => {
-      const filteredEvents = events.filter((event) =>
-        event.summary.includes(genre)
-      );
+    return genres.map((genre) => {
+      const filteredEvents = events.filter((event) => event.summary.includes(genre));
       return {
         name: genre,
         value: filteredEvents.length,
       };
     });
-    return data;
   };
 
   useEffect(() => {

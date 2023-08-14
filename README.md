@@ -67,5 +67,5 @@ Scenario 1: User can install the meet app as a shortcut on their device home scr
 ### Feature 6: Display Charts Visualizing Event Details						
 Scenario 1: Show a chart with the number of upcoming events in each city. 
 					
-				
+![Alt text](<Screenshot 2023-08-10 at 15.28.48.png>)				
 	

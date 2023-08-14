@@ -76,11 +76,23 @@ const App = () => {
         />
         <NumberOfEvents 
         setErrorAlert={setErrorAlert}
-        eventNumber={eventNumber} onEventNumberChange={handleEventNumberChange} /> 
+        eventNumber={eventNumber} 
+        onEventNumberChange={handleEventNumberChange} 
+        /> 
           {/* Charts */}
         <div className='chart-container'>
-        <CityEventsChart allLocations={allLocations} events={events} selectedCity={selectedCity} />
-        <EventsPieChart events={events} />
+        <CityEventsChart 
+          allLocations={allLocations} 
+          events={filteredEvents.length > 0 ? filteredEvents.slice(0, eventNumber) : events.slice(0, eventNumber)} 
+          selectedCity={selectedCity} 
+          eventNumber={eventNumber} 
+        />
+        <EventsPieChart 
+          allLocations={allLocations} 
+          events={filteredEvents.length > 0 ? filteredEvents.slice(0, eventNumber) : events.slice(0, eventNumber)} 
+          selectedCity={selectedCity} 
+          eventNumber={eventNumber} 
+        />
         </div>
         <EventList events={filteredEvents.length > 0 ? filteredEvents.slice(0, eventNumber ) : events.slice(0, eventNumber )}/>
     </div>
