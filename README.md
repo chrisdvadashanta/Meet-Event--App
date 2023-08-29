@@ -1,19 +1,10 @@
-Meet App
+# Meet App
 
-Meet App for events in cities Deployed here: https://chrisdvadashanta.github.io/meet/
+## Meet App for events in cities Deployed here: https://chrisdvadashanta.github.io/meet/
 
-The GitHub repository:https://github.com/chrisdvadashanta/meet
-
+👉 **Live Demo**: [Meet-App]([https://myflixmovie1234.netlify.app](https://github.com/chrisdvadashanta/meet))
 
 Usage of serverless function: These functions will be used with AWS and lambda to create a progressive web app functioning "without" a backend for a serverless web app. The process of users pulling data through an existing API (the Google Calendar) and showing events nearby, by selecting the location, the serverless function will ensure fast response time for the app to show these events and their details to the user. The app is easy to scale and to deploy and as the data is not to sensitive 9public events) it doesn't need to be stored on an owned server.
-
-User Stories User Story definition: As a [role], I should be able to [action] So that [benefit].
-
-Feature 1: Filter Events By City As a user, I should be able to filter events by city So that I can see a list of events taking place in that city. Feature 2: Show/Hide Event Details As a user, I should be able to show and hide Event Details So that I can see the Details of each event. Feature 3: Specify Number of Events As a user, I should be able to only see a specific Numer of Events So that I can see a list of Events with a certain number. Feature 4: Use the App When Offline As a user, I should be able to use the app when offline, So that I don't need the Internet to access the app. Feature 5: Add an App Shortcut to the Home Screen As a user, I should be able to add an app shortcut to my home screen, So that I can access the app fast. Feature 6: Display Charts Visualizing Event Details As a user, I should be able to display charts visualizing event details. So that I can have an overview within a chart.
-
-Scenarios Feature 1: Filter Events By City
-
-Scenario 1: When the user hasn’t searched for a city, show upcoming events from all cities. Scenario 2: User should see a list of suggestions when they search for a city. Scenario 3: User can select a city from the suggested list.
 
 ### Feature 1: Filter Events By City
 As a user,
